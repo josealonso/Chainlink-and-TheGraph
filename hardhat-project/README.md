@@ -1,3 +1,14 @@
+https://vsupalov.com/ethers-call-payable-solidity-function/
+```
+const { ethereum } = window;
+const provider = new ethers.providers.Web3Provider(ethereum);
+const signer = provider.getSigner()
+const connectedContract = new ethers.Contract(CONTRACT_ADDRESS, YOUR_ABI.abi, signer);
+
+let tx = await connectedContract.YOUR_PAYABLE_FUNCTION(ALL, OTHER, PARAMETERS, {value: ethers.utils.parseEther(ETH_VALUE_AS_STRING)});
+```
+
+
 # Advanced Sample Hardhat Project
 
 This project demonstrates an advanced Hardhat use case, integrating other tools commonly used alongside Hardhat in the ecosystem.
