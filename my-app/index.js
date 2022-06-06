@@ -4,10 +4,15 @@ const CONTRACT_ABI = JSON.parse('[{ "inputs": [{ "internalType": "address", "nam
 const CONTRACT_ADDRESS = "0xeec0373dDf0d534C77b0B51F8254288fb0e14b41";
 const MY_WALLET = "0xFE2de2924c17C5A5E351E5fD13E2657836716BdD";
 const FEE_TO_JOIN = "0.00000000000000001";   // In Ethers, equals 10 Wei 
+const MUMBAI_API_KEY_URL = "https://polygon-mumbai.g.alchemy.com/v2/eoUKrw1_-Mp5JZI8dXzMUlxI0ixbehVF";
 
-// provider = new ethers.providers.JsonRpcProvider()    // when testing locally
-// let provider = new ethers.providers.Web3Provider(web3.currentProvider);  // for real wallets.  web3.currentProvider is deprecated
-let provider = new ethers.providers.Web3Provider(ethereum);  // for real wallets
+// provider = new ethers.providers.JsonRpcProvider()    // when using a local, hardhat node 
+let provider = new ethers.providers.JsonRpcProvider(MUMBAI_API_KEY_URL);
+provider.getBlockNumber().then((result) => {
+    console.log("Current block number: " + result);  // Check it's reading the chosen blockchain
+});
+// let provider = new ethers.providers.Web3Provider(web3.currentProvider);  // web3.currentProvider is deprecated
+// let provider = new ethers.providers.Web3Provider(ethereum);  // when using a local, hardhat node with Metamask
 // let signer = provider.getSigner(0);
 let signer = provider.getSigner(MY_WALLET);
 let contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
@@ -20,3 +25,4 @@ async function joinGame() {
     // await contract.joinGame();    // It's a payable function !!
     console.log("Just joint the game !!: ");
 }
+
